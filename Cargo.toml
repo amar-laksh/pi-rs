@@ -1,0 +1,10 @@
+[package]
+name = "pi-rs"
+version = "0.1.0"
+authors = ["Amar L. <amar.lakshya@xaviers.edu.in>"]
+
+[dependencies]
+
+
+[profile.dev]
+panic = "abort"
