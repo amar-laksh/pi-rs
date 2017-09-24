@@ -1,27 +1,35 @@
 #![no_std]
 #![feature(core_intrinsics, lang_items, asm)]
 mod comm;
-//mod gpio;
 mod time;
 mod tests;
 
 use core::intrinsics::abort;
 use comm::*;
-//use gpio::*;
 use time::*;
-use tests::led_test;
+use tests::*;
 
 #[no_mangle]
-
 pub extern fn kernel_main() {
     writes("Hello Rust Kernel world!");
-    //gpio_test();
+    gpio_test();
     led_test();
-    loop {
-        writes("REPEATING THIS.");
-        sleep(1000);
-    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // These functions below provide definitions for symbols libcore
 // expects which are not present on our bare metal target. You
