@@ -1,23 +1,25 @@
 #![no_std]
-#![feature(core_intrinsics, lang_items)]
+#![feature(core_intrinsics, lang_items, asm)]
 mod comm;
+//mod gpio;
+mod time;
+mod tests;
+
 use core::intrinsics::abort;
-use comm::io::*;
-mod gpio;
-use gpio::*;
+use comm::*;
+//use gpio::*;
+use time::*;
+use tests::led_test;
 
 #[no_mangle]
 
 pub extern fn kernel_main() {
     writes("Hello Rust Kernel world!");
-    gpio_test();
+    //gpio_test();
+    led_test();
     loop {
-        let c: u8 = getc();
-        if c == '1' as u8 {
-            writes("YOU WROTE 1\n");
-        } else {
-            writes("YOU WROTE SOMETHING ELSE\n");
-        }
+        writes("REPEATING THIS.");
+        sleep(1000);
     }
 }
 

@@ -1,4 +1,4 @@
-use comm::io::*;
+use comm::*;
 
 
 pub fn gpio_test() {
