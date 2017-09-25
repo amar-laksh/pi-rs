@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 use core::intrinsics::volatile_load;
 use core::intrinsics::volatile_store;
 
@@ -34,3 +35,31 @@ pub fn writes(msg: &str) {
         writec(c as u8);
     }
 }
+
+pub fn errors(msg: &str) {
+    for c in "ERROR: ".chars() {
+        writec(c as u8);
+    }
+    for c in msg.chars() {
+        writec(c as u8);
+    }
+}
+
+pub fn writesn(msg: &str) {
+    for c in msg.chars() {
+        writec(c as u8);
+    }
+    writec('\n' as u8);
+}
+
+pub fn errorsn(msg: &str) {
+    for c in "ERROR: ".chars() {
+        writec(c as u8);
+    }
+    for c in msg.chars() {
+        writec(c as u8);
+    }
+    writec('\n' as u8);
+}
+
+

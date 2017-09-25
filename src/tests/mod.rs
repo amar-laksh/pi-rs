@@ -1,5 +1,6 @@
-use comm::writes;
-use time::sleep;
+use comms::*;
+use time::*;
+//use gpio::*;
 
 const GPIO_BASE: u32 = 0x20200000;
 

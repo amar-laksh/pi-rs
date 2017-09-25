@@ -1,18 +1,23 @@
 #![no_std]
 #![feature(core_intrinsics, lang_items, asm)]
-mod comm;
-mod time;
+
+mod consts;
+mod gpio;
+mod comms;
 mod tests;
+mod time;
 
 use core::intrinsics::abort;
-use comm::*;
+use comms::*;
 use time::*;
 use tests::*;
+use gpio::*;
 
 #[no_mangle]
 pub extern fn kernel_main() {
     writes("Hello Rust Kernel world!");
     gpio_test();
+    getPinMode(2);
     led_test();
 }
 
@@ -53,3 +58,4 @@ pub extern fn rust_begin_unwind(_: core::fmt::Arguments, _: &'static str, _: u32
 #[allow(non_snake_case)]
 #[no_mangle]
 pub extern fn _Unwind_Resume() { loop {} }
+

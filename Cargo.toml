@@ -5,6 +5,5 @@ authors = ["Amar L. <amar.lakshya@xaviers.edu.in>"]
 
 [dependencies]
 
-
 [profile.dev]
 panic = "abort"
