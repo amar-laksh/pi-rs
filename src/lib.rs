@@ -51,7 +51,8 @@ pub extern fn eh_personality() {}
 
 #[lang = "panic_fmt"]
 #[no_mangle]
-pub extern fn rust_begin_unwind(_: core::fmt::Arguments, _: &'static str, _: u32) -> ! {
+pub extern fn rust_begin_unwind(_: core::fmt::Arguments
+                                , _: &'static str, _: u32) -> ! {
     unsafe { abort() }
 }
 

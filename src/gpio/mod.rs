@@ -5,6 +5,9 @@ use consts::*;
 use comms::*;
 use time::sleep_cycle;
 
+
+//////////////////////// HELPER FUNCTIONS /////////////////
+
 fn get_offset(pin: i8) -> u32 {
     let mut offset: u32 = 21;
     match pin % 10 {
@@ -44,6 +47,25 @@ fn set_pin_function(sel: u32, offset: u32, value :u32)  {
     ra |= value<<offset;
     mmio_write(sel, ra);
 }
+
+fn check_pin_sel_read(pin: i8
+                      , sel1: u32
+                      , sel2: u32) -> u32 {
+    return match pin { 0...31 => { sel1 }, _ => { sel2 }};
+}
+
+fn check_pin_sel_write(pin: i8
+                       , sel1: u32
+                       , sel2: u32
+                       , value: u32) {
+    return match pin {
+        0...31 => { mmio_write(sel1, value<<(32 - pin)) },
+        _ => { mmio_write(sel2, value<<(pin - 32))}
+    }
+}
+
+//////////////////////// READ FUNCTIONS ///////////////////
+
 pub fn getPinMode(pin: i8) -> u32 {
     let value: u32;
     let offset: u32 = get_offset(pin);
@@ -95,4 +117,115 @@ pub fn pinMode(pin: i8, state :i8) {
     }
 }
 
+pub fn digitalRead(pin: i8) -> u32 {
+    let gplev: u32 = check_pin_sel_read(pin, GPLEV0, GPLEV1);
+        return mmio_read(gplev)  & (1<<(pin - (32 & pin)));
+}
 
+pub fn eventRead(pin: i8) -> u32 {
+    let gpsel: u32 = check_pin_sel_read(pin, GPEDS0, GPEDS1);
+    return gpsel & (1<<pin);
+}
+
+pub fn risingEdgeRead(pin: i8) -> u32 {
+    let gpsel: u32 = check_pin_sel_read(pin, GPREN0, GPREN1);
+    return gpsel & (1<<pin);
+}
+
+pub fn fallingEdgeRead(pin: i8) -> u32 {
+    let gpsel: u32 = check_pin_sel_read(pin, GPFEN0, GPFEN1);
+    return gpsel & (1<<pin);
+}
+
+pub fn highDetectRead(pin: i8) -> u32 {
+    let gpsel: u32 = check_pin_sel_read(pin, GPHEN0, GPHEN1);
+    return gpsel & (1<<pin);
+}
+
+pub fn lowDetectRead(pin: i8) -> u32 {
+    let gpsel: u32 = check_pin_sel_read(pin, GPLEN0, GPLEN1);
+    return gpsel & (1<<pin);
+}
+
+pub fn asyncRisingEdgeRead(pin: i8) -> u32 {
+    let gpsel: u32 = check_pin_sel_read(pin, GPAREN0, GPAREN1);
+    return gpsel & (1<<pin);
+}
+
+pub fn asyncFallingEdgeRead(pin: i8) -> u32 {
+    let gpsel: u32 = check_pin_sel_read(pin, GPAFEN0, GPAFEN1);
+    return gpsel & (1<<pin);
+}
+
+pub fn pullUpDownRead() -> u32 {
+    return mmio_read(GPPUD);
+}
+
+pub fn pullUpDownClockRead(pin: i8) -> u32 {
+    let gpsel: u32 = check_pin_sel_read(pin, GPPUDCLK0, GPPUDCLK1);
+    return gpsel & (1<<pin);
+}
+
+//////////////////////// WRITE FUNCTIONS //////////////////
+
+pub fn digitalWrite(pin: i8, state: i8) {
+    let value: u32 = 1<<(pin - (32 & pin));
+    match state {
+        HIGH => {
+            match pin {
+                0...31 => {
+                    mmio_write(GPSET0, value);
+                },
+                32...53 => {
+                    mmio_write(GPSET1, value);
+                },
+                _ => errorsn("invalid pin chosen")
+            }
+        },
+
+        _ => {
+            match pin {
+                0...31 => {
+                    mmio_write(GPCLR0, value);
+                },
+                32...53 => {
+                    mmio_write(GPCLR1, value);
+                },
+            _ => errorsn("invalid pin chosen")
+            }
+        }
+    }
+}
+
+
+pub fn eventWrite(pin: i8, value: u32) {
+    check_pin_sel_write(pin, GPEDS0, GPEDS1, value);
+}
+
+pub fn risingEdgeWrite(pin: i8, value: u32) {
+    check_pin_sel_write(pin, GPREN0, GPREN1, value);
+}
+
+pub fn fallingEdgeWrite(pin: i8, value: u32) {
+    check_pin_sel_write(pin, GPFEN0, GPFEN1, value);
+}
+
+pub fn highDetectWrite(pin: i8, value: u32) {
+    check_pin_sel_write(pin, GPHEN0, GPHEN1, value);
+}
+
+pub fn lowDetectWrite(pin: i8, value: u32) {
+    check_pin_sel_write(pin, GPLEN0, GPLEN1, value);
+}
+
+pub fn asyncRisingEdgeWrite(pin: i8, value: u32) {
+    check_pin_sel_write(pin, GPAREN0, GPAREN1, value);
+}
+
+pub fn pullUpDownWrite(value: u32) {
+    mmio_write(GPPUD, value);
+}
+
+pub fn pullUpDownClockWrite(pin: i8, value: u32) {
+    check_pin_sel_write(pin, GPPUDCLK0, GPPUDCLK1, value);
+}
