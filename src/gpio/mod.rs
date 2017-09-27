@@ -93,26 +93,9 @@ pub fn pinMode(pin: i8, state :i8) {
             mmio_write(GPPUDCLK0, 0);
         },
 
-        ALT0 => {
-            set_pin_function(sel, offset, 4);
+        ALT5...ALT2 => {
+            set_pin_function(sel, offset, state as u32);
         },
-
-        ALT1 => {
-            set_pin_function(sel, offset, 5);
-        },
-
-        ALT2 => {
-            set_pin_function(sel, offset, 6);
-        },
-
-        ALT4 => {
-            set_pin_function(sel, offset, 3);
-        },
-
-        ALT5 => {
-            set_pin_function(sel, offset, 2);
-        },
-
         _ => errorsn("Sorry there is no such function")
     }
 }
@@ -196,7 +179,6 @@ pub fn digitalWrite(pin: i8, state: i8) {
         }
     }
 }
-
 
 pub fn eventWrite(pin: i8, value: u32) {
     check_pin_sel_write(pin, GPEDS0, GPEDS1, value);
