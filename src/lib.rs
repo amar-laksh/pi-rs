@@ -15,10 +15,17 @@ use gpio::*;
 
 #[no_mangle]
 pub extern fn kernel_main() {
-    writes("Hello Rust Kernel world!");
-    gpio_test();
-    getPinMode(2);
-    led_test();
+    errors("HELLO BOY");
+    mini_uart_init();
+    loop {
+        if mini_uart_getc() == '1' as u8 {
+            break;
+        }
+        led_test();
+    }
+    loop {
+
+    }
 }
 
 

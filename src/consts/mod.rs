@@ -68,3 +68,36 @@ pub const GPPUDCLK1: u32 =  0x2020009C;
 
 pub const TEST: u32 =  0x202000B0;
 
+pub const AUX_IRQ:u32 = 0x20215000;
+pub const AUX_ENABLES:u32 = 0x20215004;
+pub const AUX_MU_IO_REG:u32 = 0x20215040;
+pub const AUX_MU_IER_REG:u32 = 0x20215044;
+pub const AUX_MU_IIR_REG :u32 = 0x20215048;
+pub const AUX_MU_LCR_REG :u32 = 0x2021504C;
+pub const AUX_MU_MCR_REG :u32 = 0x20215050;
+pub const AUX_MU_LSR_REG :u32 = 0x20215054;
+pub const AUX_MU_MSR_REG :u32 = 0x20215058;
+pub const AUX_MU_SCRATCH :u32 = 0x2021505C;
+pub const AUX_MU_CNTL_REG:u32 = 0x20215060;
+pub const AUX_MU_STAT_REG:u32 = 0x20215064;
+pub const AUX_MU_BAUD_REG:u32 = 0x20215068;
+
+pub const UART_BASE:u32 = 0x20201000;
+pub const UART_DR:u32 = 0x20201000;
+pub const UART_RSRECR:u32 = 0x20201004;
+pub const UART_FR:u32 = 0x20201018;
+pub const UART_ILPR:u32 = 0x20201020;
+pub const UART_IBRD:u32 = 0x20201024;
+pub const UART_FBRD:u32 = 0x20201028;
+pub const UART_LCRH:u32 = 0x2020102C;
+pub const UART_CR:u32 = 0x20201030;
+pub const UART_IFLS:u32 = 0x20201034;
+pub const UART_IMSC:u32 = 0x20201038;
+pub const UART_RIS:u32 = 0x2020103C;
+pub const UART_MIS:u32 = 0x20201040;
+pub const UART_ICR:u32 = 0x20201044;
+pub const UART_DMACR:u32 = 0x20201048;
+pub const UART_ITCR:u32 = 0x20201080;
+pub const UART_ITIP:u32 = 0x20201084;
+pub const UART_ITOP:u32 = 0x20201088;
+pub const UART_TDR:u32 = 0x2020108C;
