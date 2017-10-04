@@ -15,16 +15,10 @@ use gpio::*;
 
 #[no_mangle]
 pub extern fn kernel_main() {
-    errors("HELLO BOY");
     mini_uart_init();
     loop {
-        if mini_uart_getc() == '1' as u8 {
-            break;
-        }
+        writes("HELLO WORLD FROM RUST");
         led_test();
-    }
-    loop {
-
     }
 }
 

@@ -3,7 +3,7 @@
 
 use consts::*;
 use comms::*;
-use time::sleep_cycle;
+use time::delay_cycle;
 
 
 //////////////////////// HELPER FUNCTIONS /////////////////
@@ -86,9 +86,9 @@ pub fn pinMode(pin: i8, state :i8) {
             set_pin_function(sel, offset, 0);
 
             mmio_write(GPPUD, 2);
-            sleep_cycle(150);
+            delay_cycle(150);
             mmio_write(GPPUDCLK0, (1<<pin));
-            sleep_cycle(150);
+            delay_cycle(150);
             mmio_write(GPPUD, 0);
             mmio_write(GPPUDCLK0, 0);
         },

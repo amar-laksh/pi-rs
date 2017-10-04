@@ -37,6 +37,7 @@ pub fn writes(msg: &str) {
 }
 
 pub fn errors(msg: &str) {
+
 }
 
 pub fn writesn(msg: &str) {
@@ -60,17 +61,17 @@ pub fn mini_uart_init() {
 
     pinMode(14, ALT5);
     mmio_write(GPPUD, 0);
-    sleep_cycle(150);
+    delay_cycle(150);
     mmio_write(GPPUDCLK0,(1<<14));
-    sleep_cycle(150);
+    delay_cycle(150);
     mmio_write(GPPUD, 0);
     mmio_write(GPPUDCLK0,0);
 
     pinMode(15, ALT5);
     mmio_write(GPPUD, 0);
-    sleep_cycle(150);
+    delay_cycle(150);
     mmio_write(GPPUDCLK0,(1<<15));
-    sleep_cycle(150);
+    delay_cycle(150);
     mmio_write(GPPUD, 0);
     mmio_write(GPPUDCLK0,0);
 

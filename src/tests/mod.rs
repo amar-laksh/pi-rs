@@ -12,11 +12,11 @@ pub fn led_test() {
         digitalWrite(35, HIGH);
         digitalWrite(47, LOW);
         digitalWrite(24, LOW);
-        sleep(20);
+        delay(20);
         digitalWrite(35, LOW);
         digitalWrite(47, HIGH);
         digitalWrite(24, HIGH);
-        sleep(20);
+        delay(20);
     }
     digitalWrite(35, LOW);
     digitalWrite(47, LOW);
