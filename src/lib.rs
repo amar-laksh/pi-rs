@@ -15,7 +15,6 @@ use gpio::*;
 
 #[no_mangle]
 pub extern fn kernel_main() {
-    mini_uart_init();
     loop {
         writes("HELLO WORLD FROM RUST");
         led_test();

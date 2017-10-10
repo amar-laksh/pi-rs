@@ -1,4 +1,5 @@
 #![allow(dead_code)]
+#![allow(non_snake_case)]
 
 use core::intrinsics::volatile_load;
 use core::intrinsics::volatile_store;
@@ -48,7 +49,7 @@ pub fn errorsn(msg: &str) {
 
 }
 
-pub fn mini_uart_init() {
+pub fn mini_uart_init(beginValue: i64) {
     mmio_write(AUX_ENABLES, 0x007);
     mmio_write(AUX_MU_IER_REG,0);
     mmio_write(AUX_MU_CNTL_REG,0);
@@ -77,6 +78,85 @@ pub fn mini_uart_init() {
 
 
     mmio_write(AUX_MU_CNTL_REG,3);
+}
+
+struct Serial {
+
+}
+
+impl Serial {
+    fn available(&self) -> i64 {
+        return 32;
+    }
+
+    fn availableForWrite(&self) -> i64 {
+        return 32;
+    }
+
+    fn begin<T>(&self, beginValue: i64, config: T) {
+        mini_uart_init(beginValue);
+    }
+
+    fn end(&self) {
+    }
+
+    fn find(&self, target: &str) -> bool {
+        return true;
+    }
+
+    fn findUntil(&self, target: &str, terminal: &str) -> bool {
+        return true;
+    }
+
+    fn flush(&self) {
+    }
+
+    fn parseFloat(&self) -> f64 {
+        return 32.0;
+    }
+
+    fn parseInt(&self) -> i64 {
+        return 32;
+    }
+
+    fn peek(&self) -> i64 {
+        return 32;
+    }
+
+    fn print<T>(&self, val: T, format: T) -> i64 {
+        return 32;
+    }
+
+    fn println<T>(&self, val: T, format: T) -> i64 {
+        return 32;
+    }
+
+    fn read(&self) -> i64 {
+        return 32;
+    }
+
+//    fn readBytes(&self, buffer: vec![char], length: i64) ->  u8 {
+//        return 0;
+//    }
+
+//    fn readBytesUntil(&self, character: char, buffer: vec![char], length: i64) -> u8 {
+//        return 0;
+//    }
+
+    fn setTimeout(&self, time: i64) {
+    }
+
+    fn write<T>(&self, val: T) {
+
+    }
+
+//    fn write(&self, buffer: vec![char], length: i64) -> u8 {
+//        return 32;
+//    }
+}
+
+pub fn serialEvent<T>(arg: T) {
+
 }
 
 
