@@ -37,11 +37,11 @@ pub fn writes(msg: &str) {
     }
 }
 
-pub fn errors(msg: &str) {
+pub fn writesn(msg: &str) {
 
 }
 
-pub fn writesn(msg: &str) {
+pub fn errors(msg: &str) {
 
 }
 
